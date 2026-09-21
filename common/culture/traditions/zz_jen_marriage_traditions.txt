@@ -1,0 +1,48 @@
+# Extra Slots LAST: True Valyrian Lustful Dragonblood spouse/consort cap.
+# Do NOT overlay vanilla tradition_polygamous here (would wipe AGOT/Unlimited versions).
+
+tradition_jen_lustful_dragonblood = {
+	category = ritual
+	layers = {
+		0 = intrigue
+		1 = western
+		4 = jen_lustful_dragonblood.dds
+	}
+	is_shown = { jen_culture_can_pick_dragon_tradition_trigger = yes }
+	can_pick = {
+		custom_tooltip = {
+			text = jen_dragon_tradition_requires_blood_tt
+			jen_culture_can_pick_dragon_tradition_trigger = yes
+		}
+		custom_tooltip = {
+			text = jen_lustful_cannot_have_other_marriage_tt
+			NOR = {
+				culture_tradition:tradition_monogamous = { is_in_list = traits }
+				culture_tradition:tradition_polygamous = { is_in_list = traits }
+				culture_tradition:tradition_concubines = { is_in_list = traits }
+			}
+		}
+	}
+	can_pick_for_hybridization = {
+		jen_culture_can_pick_dragon_tradition_trigger = yes
+		NOR = {
+			culture_tradition:tradition_monogamous = { is_in_list = traits }
+			culture_tradition:tradition_polygamous = { is_in_list = traits }
+			culture_tradition:tradition_concubines = { is_in_list = traits }
+		}
+	}
+	parameters = {
+		jen_lustful_dragonblood = yes
+		number_of_spouses = 100
+		number_of_consorts = 100
+		number_of_consorts_hegemony = 100
+	}
+	character_modifier = {
+		health = 0.25
+		fertility = 0.5
+		positive_inactive_inheritance_chance = 0.4
+		positive_random_genetic_chance = 4
+	}
+	cost = { prestige = { add = { value = tradition_base_cost desc = BASE format = "BASE_VALUE_FORMAT" } multiply = tradition_replacement_cost_if_relevant } }
+	ai_will_do = { value = 0 }
+}

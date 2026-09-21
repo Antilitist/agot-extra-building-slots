@@ -1,0 +1,18 @@
+﻿# Extra Slots loads last. Vanilla action_can_spend_perk_point is a fallback
+# toast for unknown focuses. Its icon is an old unframed 3-arrow asset that
+# looks broken in the current HUD. Per-lifestyle toasts cover perk points,
+# including BotD action_lifestyle_jen_dragon. Never create the generic one.
+
+action_can_spend_perk_point = {
+	type = alert
+	check_create_action = {
+	}
+
+	effect = {
+		scope:actor = {
+			open_view_data = {
+				view = lifestyle
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+﻿l_english:
+ building_type_civil_engineering_01: "Civil Engineering"
+ building_civil_engineering_01: "Extra Building Slot"
+ building_type_civil_engineering_01_desc: "Local engineers expand the holding so more buildings can be raised.\n\nCompleting this project adds #P +1#! building slot, then the project is removed so the new slot stays free.\n\nIf you do not see this, the holding is full: use the Major decision Add a Building Slot first."
+ building_civil_engineering_01_desc: "Local engineers expand the holding so more buildings can be raised."

@@ -1,0 +1,80 @@
+# Extra Slots LAST: marriage engine caps.
+# AGOT Unlimited sets polygamy to 1000 spouses with ZERO consorts (wipes concubines).
+# Custom Blood-Wives can show 40 in the faith UI while GetMaxSpouses still follows
+# doctrine_polygamy. Keep Blood-Wives defined, and make polygamy carry consort slots.
+
+doctrine_polygamy = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_polygamy }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	parameters = {
+		number_of_spouses = 40
+		number_of_consorts = 40
+		spouse_piety_loss = yes
+		men_can_have_multiple_spouses = yes
+		women_can_have_multiple_spouses = yes
+		men_can_have_consorts = yes
+		women_can_have_consorts = yes
+		jen_blood_wives_law = yes
+	}
+}
+
+doctrine_concubines = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_concubines }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	parameters = {
+		number_of_spouses = 1
+		number_of_consorts = 40
+		men_can_have_consorts = yes
+		women_can_have_consorts = yes
+	}
+}
+
+doctrine_jen_blood_wives = {
+	icon = jen_doctrine_blood_wives
+
+	is_shown = {
+		OR = {
+			religion_tag = jen_valyrian_religion
+			has_doctrine = doctrine_jen_blood_wives
+		}
+	}
+
+	can_pick = {
+		custom_tooltip = {
+			text = doctrine_jen_blood_wives_religion_tt
+			OR = {
+				religion_tag = jen_valyrian_religion
+				has_doctrine = doctrine_jen_blood_wives
+			}
+		}
+	}
+
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_jen_blood_wives }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	parameters = {
+		number_of_spouses = 40
+		spouse_piety_loss = yes
+		number_of_consorts = 40
+		men_can_have_multiple_spouses = yes
+		women_can_have_multiple_spouses = yes
+		men_can_have_consorts = yes
+		women_can_have_consorts = yes
+		jen_blood_wives_law = yes
+	}
+}

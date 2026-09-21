@@ -1,0 +1,5 @@
+﻿jen_player_controls_province_trigger = {
+	has_holding = yes
+	exists = province_owner
+	province_owner = { is_ai = no }
+}

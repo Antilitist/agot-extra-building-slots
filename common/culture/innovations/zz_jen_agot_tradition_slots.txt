@@ -1,0 +1,20 @@
+﻿# Hidden civic innovation — extra tradition slots without consuming a tradition slot.
+# Granted by decision / game-start on_action; not researched in the innovation tree.
+
+@misc_inventions = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+
+innovation_jen_agot_tradition_slots = {
+	group = culture_group_civic
+	culture_era = culture_era_tribal
+	icon = @misc_inventions
+
+	potential = { always = no }
+	can_progress = { always = no }
+
+	culture_modifier = {
+		culture_tradition_max_add = 20
+	}
+
+	flag = global_regular
+	flag = tribal_era_regular
+}

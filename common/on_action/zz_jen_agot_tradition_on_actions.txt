@@ -1,0 +1,68 @@
+on_game_start = {
+	on_actions = {
+		jen_agot_more_traditions_start
+	}
+}
+
+jen_agot_more_traditions_start = {
+	effect = {
+		every_player = {
+			limit = { exists = culture }
+			culture = { jen_agot_grant_culture_tradition_slots_effect = yes }
+			jen_agot_grant_starter_building_slot_effect = yes
+		}
+	}
+}
+
+yearly_playable_pulse = {
+	on_actions = {
+		jen_agot_more_traditions_yearly
+	}
+}
+
+jen_agot_more_traditions_yearly = {
+	effect = {
+		if = {
+			limit = {
+				is_ai = no
+				exists = culture
+			}
+			culture = { jen_agot_grant_culture_tradition_slots_effect = yes }
+			jen_agot_grant_starter_building_slot_effect = yes
+		}
+	}
+}
+
+on_monthly_pulse = {
+	on_actions = {
+		jen_agot_more_traditions_monthly
+	}
+}
+
+jen_agot_more_traditions_monthly = {
+	effect = {
+		jen_agot_grant_starter_building_slot_effect = yes
+		if = {
+			limit = {
+				is_ai = no
+				is_landed = yes
+			}
+			# PARKED 2026-09-09 — holding auto-upgrade (revisit later)
+			# jen_auto_upgrade_player_monthly_effect = yes
+		}
+	}
+}
+
+# After any tradition is added, AGOT/vanilla immediately re-sets tradition_cooldown.
+# Clear it so the 50-year lock does not come back.
+on_tradition_added = {
+	on_actions = {
+		jen_agot_clear_tradition_cooldown_after_add
+	}
+}
+
+jen_agot_clear_tradition_cooldown_after_add = {
+	effect = {
+		jen_agot_clear_culture_tradition_cooldown_effect = yes
+	}
+}

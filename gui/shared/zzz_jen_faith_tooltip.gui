@@ -1,0 +1,64 @@
+# Valyrian ruler-designer faith tooltips.
+# Court of Shadows strip. Do NOT override vanilla faith_tooltip_* types
+# (that broke every religion).
+
+template jen_faith_tooltip_core_tenets_scrollable
+{
+	divider_light = {
+		layoutpolicy_horizontal = expanding
+	}
+
+	text_label_center = {
+		text = "FAITH_CORE_TENETS_HEADING"
+		fonttintcolor = "[TooltipInfo.GetTintColor]"
+	}
+
+	widget = {
+		size = { 400 155 }
+		minimumsize = { 400 155 }
+		maximumsize = { 400 155 }
+
+		scrollbox = {
+			size = { 400 155 }
+			minimumsize = { 400 155 }
+			maximumsize = { 400 155 }
+
+			blockoverride "scrollbox_background" {}
+			blockoverride "scrollbox_background_fade" {}
+
+			blockoverride "scrollbox_content"
+			{
+				margin = { 6 6 }
+
+				hbox = {
+					name = "jen_core_tenets_row"
+					spacing = 8
+					ignoreinvisible = yes
+
+					datamodel = "[Faith.GetDoctrines]"
+
+					item = {
+						name = "doctrine_item"
+
+						container_tenet_item = {
+							visible = "[EqualTo_string( FaithDoctrine.GetGroup.GetCategory, 'core_tenets' )]"
+							tooltip = "FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+types JenFaithTooltips
+{
+	type jen_faith_tooltip_ruler_designer = faith_tooltip
+	{
+		blockoverride "extra_info"
+		{
+			using = jen_faith_tooltip_core_tenets_scrollable
+			using = faith_tooltip_ruler_designer_extra_info
+		}
+	}
+}

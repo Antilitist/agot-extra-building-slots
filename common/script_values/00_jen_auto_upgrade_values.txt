@@ -1,0 +1,15 @@
+﻿# Months to wait for one fake-queue step. Default = real construction_time (~1095 days / 30).
+# Optional UI capture stores jen_auto_time_factor on the province.
+jen_auto_upgrade_wait_months = {
+	value = standard_construction_time
+	divide = 30
+	round = yes
+	min = 1
+	if = {
+		limit = { has_variable = jen_auto_time_factor }
+		multiply = var:jen_auto_time_factor
+		round = yes
+		min = 1
+	}
+	max = 120
+}

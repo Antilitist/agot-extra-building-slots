@@ -1,0 +1,11 @@
+# Extra Slots LAST: keep Blood-Wives on the marriage row.
+doctrine_marriage_type = {
+	category = "marriage"
+
+	doctrine_types = {
+		doctrine_monogamy
+		doctrine_polygamy
+		doctrine_concubines
+		doctrine_jen_blood_wives
+	}
+}

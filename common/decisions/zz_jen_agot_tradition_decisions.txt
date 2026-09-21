@@ -1,0 +1,70 @@
+﻿jen_agot_unlock_tradition_slots_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_realm.dds"
+	}
+	desc = jen_agot_unlock_tradition_slots_decision_desc
+	selection_tooltip = jen_agot_unlock_tradition_slots_decision_tooltip
+	confirm_text = jen_agot_unlock_tradition_slots_decision_confirm
+	decision_group_type = major
+	ai_check_interval = 0
+	cooldown = { years = 0 }
+
+	is_shown = {
+		is_ai = no
+		exists = culture
+		OR = {
+			NOT = { culture = { has_innovation = innovation_jen_agot_tradition_slots } }
+			culture = { has_variable = tradition_cooldown }
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		exists = culture
+	}
+
+	effect = {
+		culture = { jen_agot_grant_culture_tradition_slots_effect = yes }
+		custom_tooltip = jen_agot_clear_tradition_wait_tt
+	}
+
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
+
+jen_agot_add_building_slot_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_realm.dds"
+	}
+	desc = jen_agot_add_building_slot_decision_desc
+	selection_tooltip = jen_agot_add_building_slot_decision_tooltip
+	confirm_text = jen_agot_add_building_slot_decision_confirm
+	decision_group_type = debug
+	ai_check_interval = 0
+	cooldown = { years = 0 }
+
+	is_shown = {
+		is_ai = no
+		is_landed = yes
+		OR = {
+			has_game_rule = agot_debug_on
+			debug_only = yes
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		exists = capital_province
+	}
+
+	effect = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				add_province_modifier = extra_building_slot
+			}
+		}
+		custom_tooltip = jen_agot_add_building_slot_tt
+	}
+
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}

@@ -1,0 +1,5 @@
+﻿# Vanilla / AGOT wait 50 years between establishing traditions. That is why
+# reform feels stuck even after you pick something. Zero the cooldown.
+add_tradition_cooldown = {
+	value = 0
+}

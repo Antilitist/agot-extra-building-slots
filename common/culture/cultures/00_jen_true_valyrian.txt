@@ -1,0 +1,80 @@
+﻿# True Valyrian. Base culture. 18 traditions at load (HV 6 + BotD 12).
+# Heritage overlay in Extra Slots grants load-time slots. Do not edit AGOT HV or sd_demon.
+
+jen_true_valyrian = {
+	color = { 200 110 28 }
+
+	ethos = ethos_bellicose
+	heritage = heritage_valyrian
+	language = language_agot_valyrian
+	martial_custom = martial_custom_equal
+	head_determination = head_determination_domain
+
+	coa_gfx = {
+		valyrian_coa_gfx
+	}
+	building_gfx = {
+		high_valyrian_building_gfx
+		mediterranean_building_gfx
+	}
+	clothing_gfx = {
+		high_valyrian_clothing_gfx
+		valyrian_clothing_gfx
+		western_clothing_gfx
+	}
+	unit_gfx = {
+		high_valyrian_unit_gfx
+		eastern_unit_gfx
+	}
+	house_coa_frame = house_frame_val1
+	house_coa_mask_offset = { 0.0 0.0 }
+	house_coa_mask_scale = { 0.79500034 0.79500034 }
+
+	traditions = {
+		tradition_agot_blackwater_bay
+		tradition_agot_high_valyrian
+		tradition_ancient_miners
+		tradition_hereditary_hierarchy
+		tradition_sorcerous_metallurgy
+		tradition_ruling_caste
+		tradition_jen_keepers_of_the_yard
+		tradition_jen_dragonlords_peace
+		tradition_jen_fire_made_flesh
+		tradition_jen_fourteen_flames
+		tradition_jen_wings_over_the_wall
+		tradition_jen_dracarys
+		tradition_jen_blood_binds_blood
+		tradition_jen_dragonseeds_place
+		tradition_jen_children_of_the_fourteen
+		tradition_jen_salt_smoke_and_tide
+		tradition_jen_lustful_dragonblood
+		tradition_jen_dragon_court
+	}
+
+	ethnicities = {
+		10 = high_valyrian_ethnicity_01
+		10 = high_valyrian_ethnicity_02
+		10 = high_valyrian_ethnicity_03
+		10 = high_valyrian_ethnicity_04
+		10 = high_valyrian_ethnicity_05
+		10 = high_valyrian_ethnicity_06
+		10 = high_valyrian_ethnicity_07
+		10 = high_valyrian_ethnicity_08
+		10 = high_valyrian_ethnicity_09
+		10 = high_valyrian_ethnicity_10
+		10 = high_valyrian_ethnicity_11
+		10 = high_valyrian_ethnicity_12
+		10 = high_valyrian_ethnicity_13
+		10 = high_valyrian_ethnicity_14
+		10 = high_valyrian_ethnicity_15
+		10 = high_valyrian_ethnicity_16
+		10 = high_valyrian_ethnicity_17
+		10 = high_valyrian_ethnicity_18
+		10 = high_valyrian_ethnicity_19
+		10 = high_valyrian_ethnicity_20
+		10 = high_valyrian_ethnicity_21
+		10 = high_valyrian_ethnicity_22
+	}
+
+	name_list = name_list_high_valyrian
+}

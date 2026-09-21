@@ -1,0 +1,20 @@
+# Compat: old More Traditions ID tradition_jim_more_1 (+6 tradition slots).
+
+tradition_jim_more_1 = {
+	category = regional
+	layers = {
+		0 = learning
+		1 = mediterranean
+		4 = jirga.dds
+	}
+	can_pick = { }
+	culture_modifier = {
+		culture_tradition_max_add = 6
+	}
+	cost = {
+		prestige = 5000
+	}
+	ai_will_do = {
+		value = 0
+	}
+}

@@ -1,0 +1,62 @@
+﻿# Extra building-slot project. Completing it adds +1 slot, then the project is removed.
+# Shown with almost no gates so it appears in the Construct list (needs one free slot).
+
+jen_extra_slot_01 = {
+	construction_time = very_quick_construction_time
+	cost_gold = cheap_building_tier_1_cost
+
+	can_construct_potential = {
+		OR = {
+			has_holding_type = castle_holding
+			has_holding_type = city_holding
+			has_holding_type = church_holding
+			has_holding_type = tribal_holding
+			has_holding_type = monastery_holding
+			has_holding_type = pirate_den_holding
+			has_holding_type = settlement_holding
+		}
+	}
+
+	type_icon = "icon_building_civil_engineering.dds"
+
+	on_complete = {
+		add_province_modifier = extra_building_slot
+		remove_building = jen_extra_slot_01
+	}
+
+	ai_value = {
+		base = 0
+	}
+}
+
+# Overlay MBR Civil Engineering: drop Public Works / development 5 so it is not hidden.
+civil_engineering_01 = {
+	construction_time = very_quick_construction_time
+	cost_gold = cheap_building_tier_1_cost
+
+	can_construct_potential = {
+		OR = {
+			has_holding_type = castle_holding
+			has_holding_type = city_holding
+			has_holding_type = church_holding
+			has_holding_type = tribal_holding
+			has_holding_type = monastery_holding
+			has_holding_type = pirate_den_holding
+			has_holding_type = settlement_holding
+		}
+	}
+
+	type_icon = "icon_building_civil_engineering.dds"
+
+	on_complete = {
+		add_province_modifier = extra_building_slot
+		remove_building = civil_engineering_01
+	}
+
+	ai_value = {
+		base = 0
+	}
+
+	flag = mbrxxx_building
+	flag = mbrxxx_civil_engineering
+}

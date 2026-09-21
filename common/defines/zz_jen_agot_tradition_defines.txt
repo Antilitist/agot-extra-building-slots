@@ -1,0 +1,15 @@
+﻿NCulture = {
+	# Vanilla/AGOT: 1.66 monthly → 100 progress ≈ 5 years minimum.
+	# Huge gain + tiny county slowdown so the first monthly tick finishes the tradition.
+	# (Reformation progress is monthly; this is as close to 1 day as the engine allows.)
+	REFORMATION_PROGRESS_GAIN_BASE = 10000
+	REFORMATION_PROGRESS_SLOWDOWN_PER_COUNTY_WITH_CULTURE = 0.001
+	REFORMATION_PROGRESS_REPLACE_TRADITION_MULT = 1.0
+	REFORMATION_MAX_YEARS = 1
+}
+
+NProvince = {
+	# AGOT sets this to 7. More Buildings Reboot raises it to 21, but load order can
+	# let AGOT win again. Keep 21 so extra-slot buildings remain constructable.
+	MAX_BUILDINGS = 21
+}

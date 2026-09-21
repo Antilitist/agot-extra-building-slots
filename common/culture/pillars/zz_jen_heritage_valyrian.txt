@@ -1,0 +1,15 @@
+# Overlay AGOT heritage_valyrian (Extra Slots loads last). Do not replace the rest of AGOT's heritage file.
+# +20 load-time tradition slots so True Valyrian can ship 18 traditions. Same pattern as Court of Shadows.
+
+heritage_valyrian = {
+	type = heritage
+	is_shown = {
+		heritage_is_shown_trigger = {
+			HERITAGE = heritage_valyrian
+		}
+	}
+	culture_modifier = {
+		culture_tradition_max_add = 20
+	}
+	audio_parameter = byzantine
+}

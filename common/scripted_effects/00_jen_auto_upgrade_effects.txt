@@ -1,0 +1,6734 @@
+# PARKED 2026-09-09 — not called (GUI hidden + monthly commented). Keep for revisit.
+# Holding auto-upgrade. No engine construct-upgrade effect in 1.19.
+# Charge gold, wait real construction months (~standard_construction_time / 30), then add_building.
+# Optional GUI capture stores jen_auto_cost_factor / jen_auto_time_factor on the province.
+
+jen_auto_upgrade_pay_and_queue_effect = {
+	# Scale script cost/time if this holding captured GUITrackItem next cost/time.
+	set_variable = {
+		name = jen_auto_this_cost
+		value = {
+			value = $COST$
+			if = {
+				limit = { has_variable = jen_auto_cost_factor }
+				multiply = var:jen_auto_cost_factor
+			}
+			min = 1
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_ongoing_construction = no
+			exists = province_owner
+			province_owner = { gold >= var:jen_auto_this_cost }
+		}
+		province_owner = {
+			remove_short_term_gold = var:jen_auto_this_cost
+		}
+		set_variable = { name = jen_auto_queue_building value = flag:$BUILDING$ }
+		set_variable = { name = jen_auto_queue_months value = jen_auto_upgrade_wait_months }
+		set_variable = { name = jen_did_upgrade value = yes }
+		debug_log = "BotD auto-upgrade queued $BUILDING$"
+		province_owner = {
+			send_interface_toast = {
+				type = event_toast_effect_neutral
+				# $BUILDING$ expands per call (e.g. building_outposts_02)
+				title = building_$BUILDING$
+				left_icon = this
+				custom_tooltip = jen_auto_upgrade_started_toast_tt
+			}
+		}
+	}
+	remove_variable = jen_auto_this_cost
+}
+
+jen_auto_upgrade_finish_announce_effect = {
+	if = {
+		limit = {
+			exists = province_owner
+			has_variable = jen_auto_queue_building
+		}
+		switch = {
+			trigger = var:jen_auto_queue_building
+		flag:outposts_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:outposts_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_outposts_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:logging_camps_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_logging_camps_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:peat_quarries_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_peat_quarries_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_forts_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_forts_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:plantations_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_plantations_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:quarries_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_quarries_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hunting_grounds_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hunting_grounds_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:military_camps_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_military_camps_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:horse_pastures_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_horse_pastures_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hillside_grazing_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hillside_grazing_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:warrior_lodges_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_warrior_lodges_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:pastures_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_pastures_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:ramparts_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_ramparts_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:curtain_walls_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_curtain_walls_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watchtowers_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watchtowers_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:cereal_fields_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_cereal_fields_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:barracks_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_barracks_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:camel_farms_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_camel_farms_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hill_farms_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hill_farms_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:elephant_pens_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_elephant_pens_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:common_tradeport_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_common_tradeport_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:hospices_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_hospices_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:qanats_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_qanats_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:murex_farm_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_murex_farm_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:wind_furnace_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_wind_furnace_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:stables_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_stables_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:smiths_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_smiths_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:orchards_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_orchards_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:farm_estates_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_farm_estates_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:regimental_grounds_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_regimental_grounds_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:caravanserai_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_caravanserai_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:windmills_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_windmills_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:watermills_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_watermills_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:workshops_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_workshops_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:monastic_schools_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_monastic_schools_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:guild_halls_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_guild_halls_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:scriptorium_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_scriptorium_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:megalith_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_megalith_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:waterworks_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_waterworks_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:paddy_fields_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_paddy_fields_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_05 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_05
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_06 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_06
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_07 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_07
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:agot_urban_farms_08 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_agot_urban_farms_08
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:castle_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_castle_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:castle_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_castle_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:castle_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_castle_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:city_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_city_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:city_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_city_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:city_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_city_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:temple_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_temple_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:temple_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_temple_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:temple_04 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_temple_04
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:tribe_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_tribe_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:settlement_02 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_settlement_02
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		flag:settlement_03 = {
+			province_owner = {
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = building_settlement_03
+					left_icon = this
+					custom_tooltip = jen_auto_upgrade_toast_tt
+				}
+			}
+		}
+		}
+	}
+}
+jen_auto_upgrade_complete_queued_effect = {
+	if = {
+		limit = { has_variable = jen_auto_queue_building }
+		switch = {
+			trigger = var:jen_auto_queue_building
+		flag:outposts_02 = {
+			add_building = outposts_02
+		}
+		flag:outposts_03 = {
+			add_building = outposts_03
+		}
+		flag:outposts_04 = {
+			add_building = outposts_04
+		}
+		flag:outposts_05 = {
+			add_building = outposts_05
+		}
+		flag:outposts_06 = {
+			add_building = outposts_06
+		}
+		flag:outposts_07 = {
+			add_building = outposts_07
+		}
+		flag:outposts_08 = {
+			add_building = outposts_08
+		}
+		flag:logging_camps_02 = {
+			add_building = logging_camps_02
+		}
+		flag:logging_camps_03 = {
+			add_building = logging_camps_03
+		}
+		flag:logging_camps_04 = {
+			add_building = logging_camps_04
+		}
+		flag:logging_camps_05 = {
+			add_building = logging_camps_05
+		}
+		flag:logging_camps_06 = {
+			add_building = logging_camps_06
+		}
+		flag:logging_camps_07 = {
+			add_building = logging_camps_07
+		}
+		flag:logging_camps_08 = {
+			add_building = logging_camps_08
+		}
+		flag:peat_quarries_02 = {
+			add_building = peat_quarries_02
+		}
+		flag:peat_quarries_03 = {
+			add_building = peat_quarries_03
+		}
+		flag:peat_quarries_04 = {
+			add_building = peat_quarries_04
+		}
+		flag:peat_quarries_05 = {
+			add_building = peat_quarries_05
+		}
+		flag:peat_quarries_06 = {
+			add_building = peat_quarries_06
+		}
+		flag:peat_quarries_07 = {
+			add_building = peat_quarries_07
+		}
+		flag:peat_quarries_08 = {
+			add_building = peat_quarries_08
+		}
+		flag:hill_forts_02 = {
+			add_building = hill_forts_02
+		}
+		flag:hill_forts_03 = {
+			add_building = hill_forts_03
+		}
+		flag:hill_forts_04 = {
+			add_building = hill_forts_04
+		}
+		flag:hill_forts_05 = {
+			add_building = hill_forts_05
+		}
+		flag:hill_forts_06 = {
+			add_building = hill_forts_06
+		}
+		flag:hill_forts_07 = {
+			add_building = hill_forts_07
+		}
+		flag:hill_forts_08 = {
+			add_building = hill_forts_08
+		}
+		flag:plantations_02 = {
+			add_building = plantations_02
+		}
+		flag:plantations_03 = {
+			add_building = plantations_03
+		}
+		flag:plantations_04 = {
+			add_building = plantations_04
+		}
+		flag:plantations_05 = {
+			add_building = plantations_05
+		}
+		flag:plantations_06 = {
+			add_building = plantations_06
+		}
+		flag:plantations_07 = {
+			add_building = plantations_07
+		}
+		flag:plantations_08 = {
+			add_building = plantations_08
+		}
+		flag:quarries_02 = {
+			add_building = quarries_02
+		}
+		flag:quarries_03 = {
+			add_building = quarries_03
+		}
+		flag:quarries_04 = {
+			add_building = quarries_04
+		}
+		flag:quarries_05 = {
+			add_building = quarries_05
+		}
+		flag:quarries_06 = {
+			add_building = quarries_06
+		}
+		flag:quarries_07 = {
+			add_building = quarries_07
+		}
+		flag:quarries_08 = {
+			add_building = quarries_08
+		}
+		flag:hunting_grounds_02 = {
+			add_building = hunting_grounds_02
+		}
+		flag:hunting_grounds_03 = {
+			add_building = hunting_grounds_03
+		}
+		flag:hunting_grounds_04 = {
+			add_building = hunting_grounds_04
+		}
+		flag:hunting_grounds_05 = {
+			add_building = hunting_grounds_05
+		}
+		flag:hunting_grounds_06 = {
+			add_building = hunting_grounds_06
+		}
+		flag:hunting_grounds_07 = {
+			add_building = hunting_grounds_07
+		}
+		flag:hunting_grounds_08 = {
+			add_building = hunting_grounds_08
+		}
+		flag:military_camps_02 = {
+			add_building = military_camps_02
+		}
+		flag:military_camps_03 = {
+			add_building = military_camps_03
+		}
+		flag:military_camps_04 = {
+			add_building = military_camps_04
+		}
+		flag:military_camps_05 = {
+			add_building = military_camps_05
+		}
+		flag:military_camps_06 = {
+			add_building = military_camps_06
+		}
+		flag:military_camps_07 = {
+			add_building = military_camps_07
+		}
+		flag:military_camps_08 = {
+			add_building = military_camps_08
+		}
+		flag:horse_pastures_02 = {
+			add_building = horse_pastures_02
+		}
+		flag:horse_pastures_03 = {
+			add_building = horse_pastures_03
+		}
+		flag:horse_pastures_04 = {
+			add_building = horse_pastures_04
+		}
+		flag:horse_pastures_05 = {
+			add_building = horse_pastures_05
+		}
+		flag:horse_pastures_06 = {
+			add_building = horse_pastures_06
+		}
+		flag:horse_pastures_07 = {
+			add_building = horse_pastures_07
+		}
+		flag:horse_pastures_08 = {
+			add_building = horse_pastures_08
+		}
+		flag:hillside_grazing_02 = {
+			add_building = hillside_grazing_02
+		}
+		flag:hillside_grazing_03 = {
+			add_building = hillside_grazing_03
+		}
+		flag:hillside_grazing_04 = {
+			add_building = hillside_grazing_04
+		}
+		flag:hillside_grazing_05 = {
+			add_building = hillside_grazing_05
+		}
+		flag:hillside_grazing_06 = {
+			add_building = hillside_grazing_06
+		}
+		flag:hillside_grazing_07 = {
+			add_building = hillside_grazing_07
+		}
+		flag:hillside_grazing_08 = {
+			add_building = hillside_grazing_08
+		}
+		flag:warrior_lodges_02 = {
+			add_building = warrior_lodges_02
+		}
+		flag:warrior_lodges_03 = {
+			add_building = warrior_lodges_03
+		}
+		flag:warrior_lodges_04 = {
+			add_building = warrior_lodges_04
+		}
+		flag:warrior_lodges_05 = {
+			add_building = warrior_lodges_05
+		}
+		flag:warrior_lodges_06 = {
+			add_building = warrior_lodges_06
+		}
+		flag:warrior_lodges_07 = {
+			add_building = warrior_lodges_07
+		}
+		flag:warrior_lodges_08 = {
+			add_building = warrior_lodges_08
+		}
+		flag:pastures_02 = {
+			add_building = pastures_02
+		}
+		flag:pastures_03 = {
+			add_building = pastures_03
+		}
+		flag:pastures_04 = {
+			add_building = pastures_04
+		}
+		flag:pastures_05 = {
+			add_building = pastures_05
+		}
+		flag:pastures_06 = {
+			add_building = pastures_06
+		}
+		flag:pastures_07 = {
+			add_building = pastures_07
+		}
+		flag:pastures_08 = {
+			add_building = pastures_08
+		}
+		flag:ramparts_02 = {
+			add_building = ramparts_02
+		}
+		flag:ramparts_03 = {
+			add_building = ramparts_03
+		}
+		flag:ramparts_04 = {
+			add_building = ramparts_04
+		}
+		flag:ramparts_05 = {
+			add_building = ramparts_05
+		}
+		flag:ramparts_06 = {
+			add_building = ramparts_06
+		}
+		flag:ramparts_07 = {
+			add_building = ramparts_07
+		}
+		flag:ramparts_08 = {
+			add_building = ramparts_08
+		}
+		flag:curtain_walls_02 = {
+			add_building = curtain_walls_02
+		}
+		flag:curtain_walls_03 = {
+			add_building = curtain_walls_03
+		}
+		flag:curtain_walls_04 = {
+			add_building = curtain_walls_04
+		}
+		flag:curtain_walls_05 = {
+			add_building = curtain_walls_05
+		}
+		flag:curtain_walls_06 = {
+			add_building = curtain_walls_06
+		}
+		flag:curtain_walls_07 = {
+			add_building = curtain_walls_07
+		}
+		flag:curtain_walls_08 = {
+			add_building = curtain_walls_08
+		}
+		flag:watchtowers_02 = {
+			add_building = watchtowers_02
+		}
+		flag:watchtowers_03 = {
+			add_building = watchtowers_03
+		}
+		flag:watchtowers_04 = {
+			add_building = watchtowers_04
+		}
+		flag:watchtowers_05 = {
+			add_building = watchtowers_05
+		}
+		flag:watchtowers_06 = {
+			add_building = watchtowers_06
+		}
+		flag:watchtowers_07 = {
+			add_building = watchtowers_07
+		}
+		flag:watchtowers_08 = {
+			add_building = watchtowers_08
+		}
+		flag:cereal_fields_02 = {
+			add_building = cereal_fields_02
+		}
+		flag:cereal_fields_03 = {
+			add_building = cereal_fields_03
+		}
+		flag:cereal_fields_04 = {
+			add_building = cereal_fields_04
+		}
+		flag:cereal_fields_05 = {
+			add_building = cereal_fields_05
+		}
+		flag:cereal_fields_06 = {
+			add_building = cereal_fields_06
+		}
+		flag:cereal_fields_07 = {
+			add_building = cereal_fields_07
+		}
+		flag:cereal_fields_08 = {
+			add_building = cereal_fields_08
+		}
+		flag:barracks_02 = {
+			add_building = barracks_02
+		}
+		flag:barracks_03 = {
+			add_building = barracks_03
+		}
+		flag:barracks_04 = {
+			add_building = barracks_04
+		}
+		flag:barracks_05 = {
+			add_building = barracks_05
+		}
+		flag:barracks_06 = {
+			add_building = barracks_06
+		}
+		flag:barracks_07 = {
+			add_building = barracks_07
+		}
+		flag:barracks_08 = {
+			add_building = barracks_08
+		}
+		flag:camel_farms_02 = {
+			add_building = camel_farms_02
+		}
+		flag:camel_farms_03 = {
+			add_building = camel_farms_03
+		}
+		flag:camel_farms_04 = {
+			add_building = camel_farms_04
+		}
+		flag:camel_farms_05 = {
+			add_building = camel_farms_05
+		}
+		flag:camel_farms_06 = {
+			add_building = camel_farms_06
+		}
+		flag:camel_farms_07 = {
+			add_building = camel_farms_07
+		}
+		flag:camel_farms_08 = {
+			add_building = camel_farms_08
+		}
+		flag:hill_farms_02 = {
+			add_building = hill_farms_02
+		}
+		flag:hill_farms_03 = {
+			add_building = hill_farms_03
+		}
+		flag:hill_farms_04 = {
+			add_building = hill_farms_04
+		}
+		flag:hill_farms_05 = {
+			add_building = hill_farms_05
+		}
+		flag:hill_farms_06 = {
+			add_building = hill_farms_06
+		}
+		flag:hill_farms_07 = {
+			add_building = hill_farms_07
+		}
+		flag:hill_farms_08 = {
+			add_building = hill_farms_08
+		}
+		flag:elephant_pens_02 = {
+			add_building = elephant_pens_02
+		}
+		flag:elephant_pens_03 = {
+			add_building = elephant_pens_03
+		}
+		flag:elephant_pens_04 = {
+			add_building = elephant_pens_04
+		}
+		flag:elephant_pens_05 = {
+			add_building = elephant_pens_05
+		}
+		flag:elephant_pens_06 = {
+			add_building = elephant_pens_06
+		}
+		flag:elephant_pens_07 = {
+			add_building = elephant_pens_07
+		}
+		flag:elephant_pens_08 = {
+			add_building = elephant_pens_08
+		}
+		flag:common_tradeport_02 = {
+			add_building = common_tradeport_02
+		}
+		flag:common_tradeport_03 = {
+			add_building = common_tradeport_03
+		}
+		flag:common_tradeport_04 = {
+			add_building = common_tradeport_04
+		}
+		flag:common_tradeport_05 = {
+			add_building = common_tradeport_05
+		}
+		flag:common_tradeport_06 = {
+			add_building = common_tradeport_06
+		}
+		flag:common_tradeport_07 = {
+			add_building = common_tradeport_07
+		}
+		flag:common_tradeport_08 = {
+			add_building = common_tradeport_08
+		}
+		flag:hospices_02 = {
+			add_building = hospices_02
+		}
+		flag:hospices_03 = {
+			add_building = hospices_03
+		}
+		flag:hospices_04 = {
+			add_building = hospices_04
+		}
+		flag:hospices_05 = {
+			add_building = hospices_05
+		}
+		flag:hospices_06 = {
+			add_building = hospices_06
+		}
+		flag:hospices_07 = {
+			add_building = hospices_07
+		}
+		flag:hospices_08 = {
+			add_building = hospices_08
+		}
+		flag:qanats_02 = {
+			add_building = qanats_02
+		}
+		flag:qanats_03 = {
+			add_building = qanats_03
+		}
+		flag:qanats_04 = {
+			add_building = qanats_04
+		}
+		flag:qanats_05 = {
+			add_building = qanats_05
+		}
+		flag:qanats_06 = {
+			add_building = qanats_06
+		}
+		flag:qanats_07 = {
+			add_building = qanats_07
+		}
+		flag:qanats_08 = {
+			add_building = qanats_08
+		}
+		flag:murex_farm_02 = {
+			add_building = murex_farm_02
+		}
+		flag:murex_farm_03 = {
+			add_building = murex_farm_03
+		}
+		flag:murex_farm_04 = {
+			add_building = murex_farm_04
+		}
+		flag:murex_farm_05 = {
+			add_building = murex_farm_05
+		}
+		flag:murex_farm_06 = {
+			add_building = murex_farm_06
+		}
+		flag:murex_farm_07 = {
+			add_building = murex_farm_07
+		}
+		flag:murex_farm_08 = {
+			add_building = murex_farm_08
+		}
+		flag:wind_furnace_02 = {
+			add_building = wind_furnace_02
+		}
+		flag:wind_furnace_03 = {
+			add_building = wind_furnace_03
+		}
+		flag:wind_furnace_04 = {
+			add_building = wind_furnace_04
+		}
+		flag:wind_furnace_05 = {
+			add_building = wind_furnace_05
+		}
+		flag:wind_furnace_06 = {
+			add_building = wind_furnace_06
+		}
+		flag:wind_furnace_07 = {
+			add_building = wind_furnace_07
+		}
+		flag:wind_furnace_08 = {
+			add_building = wind_furnace_08
+		}
+		flag:stables_02 = {
+			add_building = stables_02
+		}
+		flag:stables_03 = {
+			add_building = stables_03
+		}
+		flag:stables_04 = {
+			add_building = stables_04
+		}
+		flag:stables_05 = {
+			add_building = stables_05
+		}
+		flag:stables_06 = {
+			add_building = stables_06
+		}
+		flag:stables_07 = {
+			add_building = stables_07
+		}
+		flag:stables_08 = {
+			add_building = stables_08
+		}
+		flag:smiths_02 = {
+			add_building = smiths_02
+		}
+		flag:smiths_03 = {
+			add_building = smiths_03
+		}
+		flag:smiths_04 = {
+			add_building = smiths_04
+		}
+		flag:smiths_05 = {
+			add_building = smiths_05
+		}
+		flag:smiths_06 = {
+			add_building = smiths_06
+		}
+		flag:smiths_07 = {
+			add_building = smiths_07
+		}
+		flag:smiths_08 = {
+			add_building = smiths_08
+		}
+		flag:orchards_02 = {
+			add_building = orchards_02
+		}
+		flag:orchards_03 = {
+			add_building = orchards_03
+		}
+		flag:orchards_04 = {
+			add_building = orchards_04
+		}
+		flag:orchards_05 = {
+			add_building = orchards_05
+		}
+		flag:orchards_06 = {
+			add_building = orchards_06
+		}
+		flag:orchards_07 = {
+			add_building = orchards_07
+		}
+		flag:orchards_08 = {
+			add_building = orchards_08
+		}
+		flag:farm_estates_02 = {
+			add_building = farm_estates_02
+		}
+		flag:farm_estates_03 = {
+			add_building = farm_estates_03
+		}
+		flag:farm_estates_04 = {
+			add_building = farm_estates_04
+		}
+		flag:farm_estates_05 = {
+			add_building = farm_estates_05
+		}
+		flag:farm_estates_06 = {
+			add_building = farm_estates_06
+		}
+		flag:farm_estates_07 = {
+			add_building = farm_estates_07
+		}
+		flag:farm_estates_08 = {
+			add_building = farm_estates_08
+		}
+		flag:regimental_grounds_02 = {
+			add_building = regimental_grounds_02
+		}
+		flag:regimental_grounds_03 = {
+			add_building = regimental_grounds_03
+		}
+		flag:regimental_grounds_04 = {
+			add_building = regimental_grounds_04
+		}
+		flag:regimental_grounds_05 = {
+			add_building = regimental_grounds_05
+		}
+		flag:regimental_grounds_06 = {
+			add_building = regimental_grounds_06
+		}
+		flag:regimental_grounds_07 = {
+			add_building = regimental_grounds_07
+		}
+		flag:regimental_grounds_08 = {
+			add_building = regimental_grounds_08
+		}
+		flag:caravanserai_02 = {
+			add_building = caravanserai_02
+		}
+		flag:caravanserai_03 = {
+			add_building = caravanserai_03
+		}
+		flag:caravanserai_04 = {
+			add_building = caravanserai_04
+		}
+		flag:caravanserai_05 = {
+			add_building = caravanserai_05
+		}
+		flag:caravanserai_06 = {
+			add_building = caravanserai_06
+		}
+		flag:caravanserai_07 = {
+			add_building = caravanserai_07
+		}
+		flag:caravanserai_08 = {
+			add_building = caravanserai_08
+		}
+		flag:windmills_02 = {
+			add_building = windmills_02
+		}
+		flag:windmills_03 = {
+			add_building = windmills_03
+		}
+		flag:windmills_04 = {
+			add_building = windmills_04
+		}
+		flag:windmills_05 = {
+			add_building = windmills_05
+		}
+		flag:windmills_06 = {
+			add_building = windmills_06
+		}
+		flag:windmills_07 = {
+			add_building = windmills_07
+		}
+		flag:windmills_08 = {
+			add_building = windmills_08
+		}
+		flag:watermills_02 = {
+			add_building = watermills_02
+		}
+		flag:watermills_03 = {
+			add_building = watermills_03
+		}
+		flag:watermills_04 = {
+			add_building = watermills_04
+		}
+		flag:watermills_05 = {
+			add_building = watermills_05
+		}
+		flag:watermills_06 = {
+			add_building = watermills_06
+		}
+		flag:watermills_07 = {
+			add_building = watermills_07
+		}
+		flag:watermills_08 = {
+			add_building = watermills_08
+		}
+		flag:workshops_02 = {
+			add_building = workshops_02
+		}
+		flag:workshops_03 = {
+			add_building = workshops_03
+		}
+		flag:workshops_04 = {
+			add_building = workshops_04
+		}
+		flag:workshops_05 = {
+			add_building = workshops_05
+		}
+		flag:workshops_06 = {
+			add_building = workshops_06
+		}
+		flag:workshops_07 = {
+			add_building = workshops_07
+		}
+		flag:workshops_08 = {
+			add_building = workshops_08
+		}
+		flag:monastic_schools_02 = {
+			add_building = monastic_schools_02
+		}
+		flag:monastic_schools_03 = {
+			add_building = monastic_schools_03
+		}
+		flag:monastic_schools_04 = {
+			add_building = monastic_schools_04
+		}
+		flag:monastic_schools_05 = {
+			add_building = monastic_schools_05
+		}
+		flag:monastic_schools_06 = {
+			add_building = monastic_schools_06
+		}
+		flag:monastic_schools_07 = {
+			add_building = monastic_schools_07
+		}
+		flag:monastic_schools_08 = {
+			add_building = monastic_schools_08
+		}
+		flag:guild_halls_02 = {
+			add_building = guild_halls_02
+		}
+		flag:guild_halls_03 = {
+			add_building = guild_halls_03
+		}
+		flag:guild_halls_04 = {
+			add_building = guild_halls_04
+		}
+		flag:guild_halls_05 = {
+			add_building = guild_halls_05
+		}
+		flag:guild_halls_06 = {
+			add_building = guild_halls_06
+		}
+		flag:guild_halls_07 = {
+			add_building = guild_halls_07
+		}
+		flag:guild_halls_08 = {
+			add_building = guild_halls_08
+		}
+		flag:scriptorium_02 = {
+			add_building = scriptorium_02
+		}
+		flag:scriptorium_03 = {
+			add_building = scriptorium_03
+		}
+		flag:scriptorium_04 = {
+			add_building = scriptorium_04
+		}
+		flag:scriptorium_05 = {
+			add_building = scriptorium_05
+		}
+		flag:scriptorium_06 = {
+			add_building = scriptorium_06
+		}
+		flag:scriptorium_07 = {
+			add_building = scriptorium_07
+		}
+		flag:scriptorium_08 = {
+			add_building = scriptorium_08
+		}
+		flag:megalith_02 = {
+			add_building = megalith_02
+		}
+		flag:megalith_03 = {
+			add_building = megalith_03
+		}
+		flag:megalith_04 = {
+			add_building = megalith_04
+		}
+		flag:megalith_05 = {
+			add_building = megalith_05
+		}
+		flag:megalith_06 = {
+			add_building = megalith_06
+		}
+		flag:megalith_07 = {
+			add_building = megalith_07
+		}
+		flag:megalith_08 = {
+			add_building = megalith_08
+		}
+		flag:waterworks_02 = {
+			add_building = waterworks_02
+		}
+		flag:waterworks_03 = {
+			add_building = waterworks_03
+		}
+		flag:waterworks_04 = {
+			add_building = waterworks_04
+		}
+		flag:waterworks_05 = {
+			add_building = waterworks_05
+		}
+		flag:waterworks_06 = {
+			add_building = waterworks_06
+		}
+		flag:waterworks_07 = {
+			add_building = waterworks_07
+		}
+		flag:waterworks_08 = {
+			add_building = waterworks_08
+		}
+		flag:paddy_fields_02 = {
+			add_building = paddy_fields_02
+		}
+		flag:paddy_fields_03 = {
+			add_building = paddy_fields_03
+		}
+		flag:paddy_fields_04 = {
+			add_building = paddy_fields_04
+		}
+		flag:paddy_fields_05 = {
+			add_building = paddy_fields_05
+		}
+		flag:paddy_fields_06 = {
+			add_building = paddy_fields_06
+		}
+		flag:paddy_fields_07 = {
+			add_building = paddy_fields_07
+		}
+		flag:paddy_fields_08 = {
+			add_building = paddy_fields_08
+		}
+		flag:agot_urban_farms_02 = {
+			add_building = agot_urban_farms_02
+		}
+		flag:agot_urban_farms_03 = {
+			add_building = agot_urban_farms_03
+		}
+		flag:agot_urban_farms_04 = {
+			add_building = agot_urban_farms_04
+		}
+		flag:agot_urban_farms_05 = {
+			add_building = agot_urban_farms_05
+		}
+		flag:agot_urban_farms_06 = {
+			add_building = agot_urban_farms_06
+		}
+		flag:agot_urban_farms_07 = {
+			add_building = agot_urban_farms_07
+		}
+		flag:agot_urban_farms_08 = {
+			add_building = agot_urban_farms_08
+		}
+		flag:castle_02 = {
+			add_building = castle_02
+		}
+		flag:castle_03 = {
+			add_building = castle_03
+		}
+		flag:castle_04 = {
+			add_building = castle_04
+		}
+		flag:city_02 = {
+			add_building = city_02
+		}
+		flag:city_03 = {
+			add_building = city_03
+		}
+		flag:city_04 = {
+			add_building = city_04
+		}
+		flag:temple_02 = {
+			add_building = temple_02
+		}
+		flag:temple_03 = {
+			add_building = temple_03
+		}
+		flag:temple_04 = {
+			add_building = temple_04
+		}
+		flag:tribe_02 = {
+			add_building = tribe_02
+		}
+		flag:settlement_02 = {
+			add_building = settlement_02
+		}
+		flag:settlement_03 = {
+			add_building = settlement_03
+		}
+		}
+		debug_log = "BotD auto-upgrade finished"
+		jen_auto_upgrade_finish_announce_effect = yes
+		remove_variable = jen_auto_queue_building
+	}
+}
+
+jen_auto_upgrade_slots_01_02_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_01
+			NOT = { has_building_or_higher = outposts_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_01
+			NOT = { has_building_or_higher = logging_camps_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_01
+			NOT = { has_building_or_higher = peat_quarries_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_01
+			NOT = { has_building_or_higher = hill_forts_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_01
+			NOT = { has_building_or_higher = plantations_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_01
+			NOT = { has_building_or_higher = quarries_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_01
+			NOT = { has_building_or_higher = hunting_grounds_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_01
+			NOT = { has_building_or_higher = military_camps_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_01
+			NOT = { has_building_or_higher = horse_pastures_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_01
+			NOT = { has_building_or_higher = hillside_grazing_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_01
+			NOT = { has_building_or_higher = warrior_lodges_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_01
+			NOT = { has_building_or_higher = pastures_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_01
+			NOT = { has_building_or_higher = ramparts_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_01
+			NOT = { has_building_or_higher = curtain_walls_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_01
+			NOT = { has_building_or_higher = watchtowers_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_01
+			NOT = { has_building_or_higher = cereal_fields_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_01
+			NOT = { has_building_or_higher = barracks_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_01
+			NOT = { has_building_or_higher = camel_farms_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_01
+			NOT = { has_building_or_higher = hill_farms_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_01
+			NOT = { has_building_or_higher = elephant_pens_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_01
+			NOT = { has_building_or_higher = common_tradeport_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_01
+			NOT = { has_building_or_higher = hospices_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_01
+			NOT = { has_building_or_higher = qanats_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_01
+			NOT = { has_building_or_higher = murex_farm_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_01
+			NOT = { has_building_or_higher = wind_furnace_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_01
+			NOT = { has_building_or_higher = stables_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_01
+			NOT = { has_building_or_higher = smiths_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_01
+			NOT = { has_building_or_higher = orchards_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_01
+			NOT = { has_building_or_higher = farm_estates_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_01
+			NOT = { has_building_or_higher = regimental_grounds_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_01
+			NOT = { has_building_or_higher = caravanserai_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_01
+			NOT = { has_building_or_higher = windmills_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_01
+			NOT = { has_building_or_higher = watermills_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_01
+			NOT = { has_building_or_higher = workshops_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_01
+			NOT = { has_building_or_higher = monastic_schools_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_01
+			NOT = { has_building_or_higher = guild_halls_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_01
+			NOT = { has_building_or_higher = scriptorium_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_01
+			NOT = { has_building_or_higher = megalith_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_01
+			NOT = { has_building_or_higher = waterworks_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_01
+			NOT = { has_building_or_higher = paddy_fields_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_01
+			NOT = { has_building_or_higher = agot_urban_farms_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_02 COST = normal_building_tier_2_cost }
+	}
+}
+jen_auto_upgrade_slots_02_03_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_02
+			NOT = { has_building_or_higher = outposts_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_02
+			NOT = { has_building_or_higher = logging_camps_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_02
+			NOT = { has_building_or_higher = peat_quarries_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_02
+			NOT = { has_building_or_higher = hill_forts_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_02
+			NOT = { has_building_or_higher = plantations_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_02
+			NOT = { has_building_or_higher = quarries_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_02
+			NOT = { has_building_or_higher = hunting_grounds_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_02
+			NOT = { has_building_or_higher = military_camps_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_02
+			NOT = { has_building_or_higher = horse_pastures_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_02
+			NOT = { has_building_or_higher = hillside_grazing_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_02
+			NOT = { has_building_or_higher = warrior_lodges_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_02
+			NOT = { has_building_or_higher = pastures_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_02
+			NOT = { has_building_or_higher = ramparts_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_02
+			NOT = { has_building_or_higher = curtain_walls_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_02
+			NOT = { has_building_or_higher = watchtowers_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_02
+			NOT = { has_building_or_higher = cereal_fields_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_02
+			NOT = { has_building_or_higher = barracks_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_02
+			NOT = { has_building_or_higher = camel_farms_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_02
+			NOT = { has_building_or_higher = hill_farms_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_02
+			NOT = { has_building_or_higher = elephant_pens_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_02
+			NOT = { has_building_or_higher = common_tradeport_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_02
+			NOT = { has_building_or_higher = hospices_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_02
+			NOT = { has_building_or_higher = qanats_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_02
+			NOT = { has_building_or_higher = murex_farm_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_02
+			NOT = { has_building_or_higher = wind_furnace_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_02
+			NOT = { has_building_or_higher = stables_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_02
+			NOT = { has_building_or_higher = smiths_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_02
+			NOT = { has_building_or_higher = orchards_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_02
+			NOT = { has_building_or_higher = farm_estates_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_02
+			NOT = { has_building_or_higher = regimental_grounds_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_02
+			NOT = { has_building_or_higher = caravanserai_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_02
+			NOT = { has_building_or_higher = windmills_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_02
+			NOT = { has_building_or_higher = watermills_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_02
+			NOT = { has_building_or_higher = workshops_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_02
+			NOT = { has_building_or_higher = monastic_schools_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_02
+			NOT = { has_building_or_higher = guild_halls_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_02
+			NOT = { has_building_or_higher = scriptorium_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_02
+			NOT = { has_building_or_higher = megalith_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_02
+			NOT = { has_building_or_higher = waterworks_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_02
+			NOT = { has_building_or_higher = paddy_fields_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_02
+			NOT = { has_building_or_higher = agot_urban_farms_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_03 COST = normal_building_tier_3_cost }
+	}
+}
+jen_auto_upgrade_slots_03_04_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_03
+			NOT = { has_building_or_higher = outposts_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_03
+			NOT = { has_building_or_higher = logging_camps_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_03
+			NOT = { has_building_or_higher = peat_quarries_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_03
+			NOT = { has_building_or_higher = hill_forts_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_03
+			NOT = { has_building_or_higher = plantations_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_03
+			NOT = { has_building_or_higher = quarries_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_03
+			NOT = { has_building_or_higher = hunting_grounds_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_03
+			NOT = { has_building_or_higher = military_camps_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_03
+			NOT = { has_building_or_higher = horse_pastures_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_03
+			NOT = { has_building_or_higher = hillside_grazing_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_03
+			NOT = { has_building_or_higher = warrior_lodges_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_03
+			NOT = { has_building_or_higher = pastures_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_03
+			NOT = { has_building_or_higher = ramparts_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_03
+			NOT = { has_building_or_higher = curtain_walls_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_03
+			NOT = { has_building_or_higher = watchtowers_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_03
+			NOT = { has_building_or_higher = cereal_fields_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_03
+			NOT = { has_building_or_higher = barracks_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_03
+			NOT = { has_building_or_higher = camel_farms_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_03
+			NOT = { has_building_or_higher = hill_farms_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_03
+			NOT = { has_building_or_higher = elephant_pens_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_03
+			NOT = { has_building_or_higher = common_tradeport_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_03
+			NOT = { has_building_or_higher = hospices_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_03
+			NOT = { has_building_or_higher = qanats_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_03
+			NOT = { has_building_or_higher = murex_farm_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_03
+			NOT = { has_building_or_higher = wind_furnace_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_03
+			NOT = { has_building_or_higher = stables_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_03
+			NOT = { has_building_or_higher = smiths_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_03
+			NOT = { has_building_or_higher = orchards_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_03
+			NOT = { has_building_or_higher = farm_estates_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_03
+			NOT = { has_building_or_higher = regimental_grounds_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_03
+			NOT = { has_building_or_higher = caravanserai_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_03
+			NOT = { has_building_or_higher = windmills_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_03
+			NOT = { has_building_or_higher = watermills_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_03
+			NOT = { has_building_or_higher = workshops_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_03
+			NOT = { has_building_or_higher = monastic_schools_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_03
+			NOT = { has_building_or_higher = guild_halls_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_03
+			NOT = { has_building_or_higher = scriptorium_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_03
+			NOT = { has_building_or_higher = megalith_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_03
+			NOT = { has_building_or_higher = waterworks_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_03
+			NOT = { has_building_or_higher = paddy_fields_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_03
+			NOT = { has_building_or_higher = agot_urban_farms_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_04 COST = normal_building_tier_4_cost }
+	}
+}
+jen_auto_upgrade_slots_04_05_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_04
+			NOT = { has_building_or_higher = outposts_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_04
+			NOT = { has_building_or_higher = logging_camps_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_04
+			NOT = { has_building_or_higher = peat_quarries_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_04
+			NOT = { has_building_or_higher = hill_forts_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_04
+			NOT = { has_building_or_higher = plantations_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_04
+			NOT = { has_building_or_higher = quarries_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_04
+			NOT = { has_building_or_higher = hunting_grounds_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_04
+			NOT = { has_building_or_higher = military_camps_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_04
+			NOT = { has_building_or_higher = horse_pastures_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_04
+			NOT = { has_building_or_higher = hillside_grazing_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_04
+			NOT = { has_building_or_higher = warrior_lodges_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_04
+			NOT = { has_building_or_higher = pastures_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_04
+			NOT = { has_building_or_higher = ramparts_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_04
+			NOT = { has_building_or_higher = curtain_walls_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_04
+			NOT = { has_building_or_higher = watchtowers_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_04
+			NOT = { has_building_or_higher = cereal_fields_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_04
+			NOT = { has_building_or_higher = barracks_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_04
+			NOT = { has_building_or_higher = camel_farms_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_04
+			NOT = { has_building_or_higher = hill_farms_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_04
+			NOT = { has_building_or_higher = elephant_pens_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_04
+			NOT = { has_building_or_higher = common_tradeport_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_04
+			NOT = { has_building_or_higher = hospices_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_04
+			NOT = { has_building_or_higher = qanats_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_04
+			NOT = { has_building_or_higher = murex_farm_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_04
+			NOT = { has_building_or_higher = wind_furnace_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_04
+			NOT = { has_building_or_higher = stables_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_04
+			NOT = { has_building_or_higher = smiths_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_04
+			NOT = { has_building_or_higher = orchards_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_04
+			NOT = { has_building_or_higher = farm_estates_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_04
+			NOT = { has_building_or_higher = regimental_grounds_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_04
+			NOT = { has_building_or_higher = caravanserai_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_04
+			NOT = { has_building_or_higher = windmills_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_04
+			NOT = { has_building_or_higher = watermills_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_04
+			NOT = { has_building_or_higher = workshops_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_04
+			NOT = { has_building_or_higher = monastic_schools_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_04
+			NOT = { has_building_or_higher = guild_halls_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_04
+			NOT = { has_building_or_higher = scriptorium_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_04
+			NOT = { has_building_or_higher = megalith_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_04
+			NOT = { has_building_or_higher = waterworks_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_04
+			NOT = { has_building_or_higher = paddy_fields_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_05 COST = normal_building_tier_5_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_04
+			NOT = { has_building_or_higher = agot_urban_farms_05 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_05 COST = normal_building_tier_5_cost }
+	}
+}
+jen_auto_upgrade_slots_05_06_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_05
+			NOT = { has_building_or_higher = outposts_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_05
+			NOT = { has_building_or_higher = logging_camps_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_05
+			NOT = { has_building_or_higher = peat_quarries_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_05
+			NOT = { has_building_or_higher = hill_forts_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_05
+			NOT = { has_building_or_higher = plantations_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_05
+			NOT = { has_building_or_higher = quarries_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_05
+			NOT = { has_building_or_higher = hunting_grounds_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_05
+			NOT = { has_building_or_higher = military_camps_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_05
+			NOT = { has_building_or_higher = horse_pastures_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_05
+			NOT = { has_building_or_higher = hillside_grazing_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_05
+			NOT = { has_building_or_higher = warrior_lodges_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_05
+			NOT = { has_building_or_higher = pastures_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_05
+			NOT = { has_building_or_higher = ramparts_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_05
+			NOT = { has_building_or_higher = curtain_walls_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_05
+			NOT = { has_building_or_higher = watchtowers_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_05
+			NOT = { has_building_or_higher = cereal_fields_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_05
+			NOT = { has_building_or_higher = barracks_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_05
+			NOT = { has_building_or_higher = camel_farms_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_05
+			NOT = { has_building_or_higher = hill_farms_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_05
+			NOT = { has_building_or_higher = elephant_pens_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_05
+			NOT = { has_building_or_higher = common_tradeport_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_05
+			NOT = { has_building_or_higher = hospices_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_05
+			NOT = { has_building_or_higher = qanats_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_05
+			NOT = { has_building_or_higher = murex_farm_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_05
+			NOT = { has_building_or_higher = wind_furnace_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_05
+			NOT = { has_building_or_higher = stables_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_05
+			NOT = { has_building_or_higher = smiths_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_05
+			NOT = { has_building_or_higher = orchards_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_05
+			NOT = { has_building_or_higher = farm_estates_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_05
+			NOT = { has_building_or_higher = regimental_grounds_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_05
+			NOT = { has_building_or_higher = caravanserai_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_05
+			NOT = { has_building_or_higher = windmills_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_05
+			NOT = { has_building_or_higher = watermills_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_05
+			NOT = { has_building_or_higher = workshops_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_05
+			NOT = { has_building_or_higher = monastic_schools_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_05
+			NOT = { has_building_or_higher = guild_halls_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_05
+			NOT = { has_building_or_higher = scriptorium_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_05
+			NOT = { has_building_or_higher = megalith_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_05
+			NOT = { has_building_or_higher = waterworks_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_05
+			NOT = { has_building_or_higher = paddy_fields_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_06 COST = normal_building_tier_6_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_05
+			NOT = { has_building_or_higher = agot_urban_farms_06 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_06 COST = normal_building_tier_6_cost }
+	}
+}
+jen_auto_upgrade_slots_06_07_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_06
+			NOT = { has_building_or_higher = outposts_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_06
+			NOT = { has_building_or_higher = logging_camps_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_06
+			NOT = { has_building_or_higher = peat_quarries_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_06
+			NOT = { has_building_or_higher = hill_forts_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_06
+			NOT = { has_building_or_higher = plantations_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_06
+			NOT = { has_building_or_higher = quarries_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_06
+			NOT = { has_building_or_higher = hunting_grounds_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_06
+			NOT = { has_building_or_higher = military_camps_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_06
+			NOT = { has_building_or_higher = horse_pastures_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_06
+			NOT = { has_building_or_higher = hillside_grazing_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_06
+			NOT = { has_building_or_higher = warrior_lodges_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_06
+			NOT = { has_building_or_higher = pastures_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_06
+			NOT = { has_building_or_higher = ramparts_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_06
+			NOT = { has_building_or_higher = curtain_walls_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_06
+			NOT = { has_building_or_higher = watchtowers_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_06
+			NOT = { has_building_or_higher = cereal_fields_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_06
+			NOT = { has_building_or_higher = barracks_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_06
+			NOT = { has_building_or_higher = camel_farms_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_06
+			NOT = { has_building_or_higher = hill_farms_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_06
+			NOT = { has_building_or_higher = elephant_pens_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_06
+			NOT = { has_building_or_higher = common_tradeport_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_06
+			NOT = { has_building_or_higher = hospices_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_06
+			NOT = { has_building_or_higher = qanats_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_06
+			NOT = { has_building_or_higher = murex_farm_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_06
+			NOT = { has_building_or_higher = wind_furnace_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_06
+			NOT = { has_building_or_higher = stables_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_06
+			NOT = { has_building_or_higher = smiths_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_06
+			NOT = { has_building_or_higher = orchards_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_06
+			NOT = { has_building_or_higher = farm_estates_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_06
+			NOT = { has_building_or_higher = regimental_grounds_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_06
+			NOT = { has_building_or_higher = caravanserai_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_06
+			NOT = { has_building_or_higher = windmills_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_06
+			NOT = { has_building_or_higher = watermills_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_06
+			NOT = { has_building_or_higher = workshops_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_06
+			NOT = { has_building_or_higher = monastic_schools_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_06
+			NOT = { has_building_or_higher = guild_halls_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_06
+			NOT = { has_building_or_higher = scriptorium_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_06
+			NOT = { has_building_or_higher = megalith_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_06
+			NOT = { has_building_or_higher = waterworks_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_06
+			NOT = { has_building_or_higher = paddy_fields_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_07 COST = normal_building_tier_7_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_06
+			NOT = { has_building_or_higher = agot_urban_farms_07 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_07 COST = normal_building_tier_7_cost }
+	}
+}
+jen_auto_upgrade_slots_07_08_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = outposts_07
+			NOT = { has_building_or_higher = outposts_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = outposts_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = logging_camps_07
+			NOT = { has_building_or_higher = logging_camps_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = logging_camps_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = peat_quarries_07
+			NOT = { has_building_or_higher = peat_quarries_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = peat_quarries_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_forts_07
+			NOT = { has_building_or_higher = hill_forts_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_forts_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = plantations_07
+			NOT = { has_building_or_higher = plantations_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = plantations_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = quarries_07
+			NOT = { has_building_or_higher = quarries_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = quarries_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hunting_grounds_07
+			NOT = { has_building_or_higher = hunting_grounds_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hunting_grounds_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = military_camps_07
+			NOT = { has_building_or_higher = military_camps_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = military_camps_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = horse_pastures_07
+			NOT = { has_building_or_higher = horse_pastures_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = horse_pastures_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hillside_grazing_07
+			NOT = { has_building_or_higher = hillside_grazing_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hillside_grazing_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = warrior_lodges_07
+			NOT = { has_building_or_higher = warrior_lodges_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = warrior_lodges_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = pastures_07
+			NOT = { has_building_or_higher = pastures_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = pastures_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = ramparts_07
+			NOT = { has_building_or_higher = ramparts_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = ramparts_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = curtain_walls_07
+			NOT = { has_building_or_higher = curtain_walls_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = curtain_walls_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watchtowers_07
+			NOT = { has_building_or_higher = watchtowers_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watchtowers_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = cereal_fields_07
+			NOT = { has_building_or_higher = cereal_fields_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = cereal_fields_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = barracks_07
+			NOT = { has_building_or_higher = barracks_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = barracks_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = camel_farms_07
+			NOT = { has_building_or_higher = camel_farms_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = camel_farms_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hill_farms_07
+			NOT = { has_building_or_higher = hill_farms_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hill_farms_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = elephant_pens_07
+			NOT = { has_building_or_higher = elephant_pens_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = elephant_pens_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = common_tradeport_07
+			NOT = { has_building_or_higher = common_tradeport_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = common_tradeport_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = hospices_07
+			NOT = { has_building_or_higher = hospices_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = hospices_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = qanats_07
+			NOT = { has_building_or_higher = qanats_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = qanats_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = murex_farm_07
+			NOT = { has_building_or_higher = murex_farm_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = murex_farm_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = wind_furnace_07
+			NOT = { has_building_or_higher = wind_furnace_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = wind_furnace_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = stables_07
+			NOT = { has_building_or_higher = stables_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = stables_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = smiths_07
+			NOT = { has_building_or_higher = smiths_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = smiths_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = orchards_07
+			NOT = { has_building_or_higher = orchards_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = orchards_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = farm_estates_07
+			NOT = { has_building_or_higher = farm_estates_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = farm_estates_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = regimental_grounds_07
+			NOT = { has_building_or_higher = regimental_grounds_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = regimental_grounds_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = caravanserai_07
+			NOT = { has_building_or_higher = caravanserai_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = caravanserai_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = windmills_07
+			NOT = { has_building_or_higher = windmills_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = windmills_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = watermills_07
+			NOT = { has_building_or_higher = watermills_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = watermills_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = workshops_07
+			NOT = { has_building_or_higher = workshops_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = workshops_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = monastic_schools_07
+			NOT = { has_building_or_higher = monastic_schools_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = monastic_schools_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = guild_halls_07
+			NOT = { has_building_or_higher = guild_halls_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = guild_halls_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = scriptorium_07
+			NOT = { has_building_or_higher = scriptorium_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = scriptorium_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = megalith_07
+			NOT = { has_building_or_higher = megalith_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = megalith_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = waterworks_07
+			NOT = { has_building_or_higher = waterworks_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = waterworks_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = paddy_fields_07
+			NOT = { has_building_or_higher = paddy_fields_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = paddy_fields_08 COST = normal_building_tier_8_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = agot_urban_farms_07
+			NOT = { has_building_or_higher = agot_urban_farms_08 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = agot_urban_farms_08 COST = normal_building_tier_8_cost }
+	}
+}
+jen_auto_upgrade_hold_01_02_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = castle_01
+			NOT = { has_building_or_higher = castle_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = castle_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = city_01
+			NOT = { has_building_or_higher = city_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = city_02 COST = normal_building_tier_2_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = temple_01
+			NOT = { has_building_or_higher = temple_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = temple_02 COST = normal_building_tier_2_cost }
+	}
+}
+jen_auto_upgrade_hold_02_03_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = castle_02
+			NOT = { has_building_or_higher = castle_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = castle_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = city_02
+			NOT = { has_building_or_higher = city_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = city_03 COST = normal_building_tier_3_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = temple_02
+			NOT = { has_building_or_higher = temple_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = temple_03 COST = normal_building_tier_3_cost }
+	}
+}
+jen_auto_upgrade_hold_03_04_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = castle_03
+			NOT = { has_building_or_higher = castle_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = castle_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = city_03
+			NOT = { has_building_or_higher = city_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = city_04 COST = normal_building_tier_4_cost }
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = temple_03
+			NOT = { has_building_or_higher = temple_04 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = temple_04 COST = normal_building_tier_4_cost }
+	}
+}
+jen_auto_upgrade_tribe_01_02_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = tribe_01
+			NOT = { has_building_or_higher = tribe_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = tribe_02 COST = normal_building_tier_2_cost }
+	}
+}
+jen_auto_upgrade_settle_01_02_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = settlement_01
+			NOT = { has_building_or_higher = settlement_02 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = settlement_02 COST = normal_building_tier_2_cost }
+	}
+}
+jen_auto_upgrade_settle_02_03_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = jen_did_upgrade }
+			NOT = { has_variable = jen_auto_queue_building }
+			has_building = settlement_02
+			NOT = { has_building_or_higher = settlement_03 }
+		}
+		jen_auto_upgrade_pay_and_queue_effect = { BUILDING = settlement_03 COST = normal_building_tier_3_cost }
+	}
+}
+jen_auto_upgrade_tick_queue_effect = {
+	if = {
+		limit = { has_variable = jen_auto_queue_building }
+		if = {
+			limit = {
+				has_variable = jen_auto_queue_months
+				var:jen_auto_queue_months > 1
+			}
+			change_variable = { name = jen_auto_queue_months subtract = 1 }
+			debug_log = "BotD auto-upgrade queue ticking"
+		}
+		else = {
+			jen_auto_upgrade_complete_queued_effect = yes
+			remove_variable = jen_auto_queue_building
+			remove_variable = jen_auto_queue_months
+			debug_log = "BotD auto-upgrade queue finished"
+		}
+	}
+}
+
+jen_auto_upgrade_one_building_effect = {
+	remove_variable = jen_did_upgrade
+	# Finish or tick an in-progress fake queue first.
+	jen_auto_upgrade_tick_queue_effect = yes
+	if = {
+		limit = {
+			has_ongoing_construction = no
+			NOT = { has_variable = jen_auto_queue_building }
+		}
+		jen_auto_upgrade_slots_01_02_effect = yes
+		jen_auto_upgrade_hold_01_02_effect = yes
+		jen_auto_upgrade_tribe_01_02_effect = yes
+		jen_auto_upgrade_settle_01_02_effect = yes
+		jen_auto_upgrade_slots_02_03_effect = yes
+		jen_auto_upgrade_hold_02_03_effect = yes
+		jen_auto_upgrade_settle_02_03_effect = yes
+		jen_auto_upgrade_slots_03_04_effect = yes
+		jen_auto_upgrade_hold_03_04_effect = yes
+		jen_auto_upgrade_slots_04_05_effect = yes
+		jen_auto_upgrade_slots_05_06_effect = yes
+		jen_auto_upgrade_slots_06_07_effect = yes
+		jen_auto_upgrade_slots_07_08_effect = yes
+	}
+	remove_variable = jen_did_upgrade
+}
+
+jen_auto_upgrade_player_monthly_effect = {
+	debug_log = "BotD auto-upgrade monthly pulse"
+	# Do not filter tier_barony — AGOT holdings were being skipped.
+	every_held_title = {
+		limit = {
+			exists = title_province
+			title_province = { has_variable = jen_auto_upgrade }
+		}
+		title_province = {
+			debug_log = "BotD auto-upgrade flagged holding"
+			jen_auto_upgrade_one_building_effect = yes
+		}
+	}
+}
+

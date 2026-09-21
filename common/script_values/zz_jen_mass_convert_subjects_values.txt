@@ -1,0 +1,66 @@
+﻿# Extra Slots: show Mass Conversion if anyone of another faith exists.
+# Do not require the demand-conversion interaction to be shown (AGOT hides it).
+
+mod_convert_direct_vassals_number = {
+	value = 0
+	every_vassal = {
+		limit = {
+			NOT = { vassal_contract_has_flag = religiously_protected }
+			exists = faith
+			NOT = { faith = root.faith }
+		}
+		add = 1
+	}
+}
+
+mod_convert_indirect_vassals_number = {
+	value = 0
+	every_vassal_or_below = {
+		limit = {
+			NOT = { vassal_contract_has_flag = religiously_protected }
+			exists = liege
+			NOT = { liege = root }
+			exists = faith
+			NOT = { faith = root.faith }
+		}
+		add = 1
+	}
+}
+
+mod_convert_tributaries_number = {
+	value = 0
+	every_tributary = {
+		limit = {
+			exists = faith
+			NOT = { faith = root.faith }
+		}
+		add = 1
+	}
+}
+
+mod_convert_courtiers_number = {
+	value = 0
+	every_courtier = {
+		limit = {
+			exists = faith
+			NOT = { faith = root.faith }
+		}
+		add = 1
+	}
+}
+
+mod_convert_house_number = {
+	value = 0
+	if = {
+		limit = { exists = house }
+		house = {
+			every_house_member = {
+				limit = {
+					exists = faith
+					NOT = { faith = root.faith }
+				}
+				add = 1
+			}
+		}
+	}
+}

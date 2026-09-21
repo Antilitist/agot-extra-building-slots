@@ -1,0 +1,8 @@
+﻿l_english:
+ jen_auto_upgrade_off_tt:0 "Auto-upgrade: #N Off#!\nClick to turn on. Gold now; finishes after real build time. Then next while On."
+ jen_auto_upgrade_on_tt:0 "Auto-upgrade: #P On#!\nClick to turn off. A started upgrade still finishes."
+ jen_auto_upgrade_started_toast_title:0 "Upgrade begun"
+ jen_auto_upgrade_started_toast_tt:0 "Gold spent. Finishes after construction time."
+ jen_auto_upgrade_toast_title:0 "Upgrade finished"
+ jen_auto_upgrade_toast_tt:0 "Next starts if auto-upgrade stays on."
+ jen_auto_upgrade_capture_tt:0 "Use this track's gold and build time for auto-upgrade on this holding."

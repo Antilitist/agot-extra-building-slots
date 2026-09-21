@@ -1,0 +1,43 @@
+﻿# Grant +20 tradition slots to a culture (does not consume a tradition slot).
+# Also clears an already-ticking tradition_cooldown (e.g. "wait until 63 AC").
+jen_agot_clear_culture_tradition_cooldown_effect = {
+	if = {
+		limit = { has_variable = tradition_cooldown }
+		remove_variable = tradition_cooldown
+	}
+}
+
+jen_agot_grant_culture_tradition_slots_effect = {
+	jen_agot_clear_culture_tradition_cooldown_effect = yes
+	if = {
+		limit = {
+			NOT = { has_innovation = innovation_jen_agot_tradition_slots }
+		}
+		add_innovation = innovation_jen_agot_tradition_slots
+	}
+}
+
+jen_agot_grant_player_culture_tradition_slots_effect = {
+	if = {
+		limit = { exists = culture }
+		culture = { jen_agot_grant_culture_tradition_slots_effect = yes }
+	}
+}
+
+# One free slot on player baronies so Extra Building Slot / Civil Engineering can appear when 7/7.
+jen_agot_grant_starter_building_slot_effect = {
+	if = {
+		limit = {
+			is_ai = no
+			is_landed = yes
+			NOT = { has_character_flag = jen_agot_starter_building_slot }
+		}
+		add_character_flag = jen_agot_starter_building_slot
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				add_province_modifier = extra_building_slot
+			}
+		}
+	}
+}

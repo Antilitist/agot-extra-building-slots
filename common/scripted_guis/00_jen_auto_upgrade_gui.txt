@@ -1,0 +1,95 @@
+# PARKED 2026-09-09 — Holding auto-upgrade UI disabled for Steam/play.
+# Un-park: restore is_shown below + uncomment monthly in zz_jen_agot_tradition_on_actions.txt
+# Effects/values/loc/DDS left intact.
+jen_toggle_holding_auto_upgrade = {
+	scope = province
+
+	is_shown = {
+		always = no # PARKED was: jen_player_controls_province_trigger = yes
+	}
+
+	is_valid = {
+		jen_player_controls_province_trigger = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_variable = jen_auto_upgrade }
+			remove_variable = jen_auto_upgrade
+			# Clear stuck fake-queue so Off fully stops.
+			remove_variable = jen_auto_queue_building
+			remove_variable = jen_auto_queue_months
+			remove_variable = jen_did_upgrade
+			remove_variable = jen_auto_time_factor
+			remove_variable = jen_auto_cost_factor
+		}
+		else = {
+			set_variable = { name = jen_auto_upgrade value = yes }
+			# Immediate first try so we do not wait for month-tick to prove it.
+			jen_auto_upgrade_one_building_effect = yes
+		}
+	}
+}
+
+jen_holding_auto_upgrade_is_on = {
+	scope = province
+
+	is_shown = {
+		always = no # PARKED was: has_variable = jen_auto_upgrade
+	}
+
+	is_valid = {
+		always = yes
+	}
+
+	effect = {
+		hidden_effect = { }
+	}
+}
+
+# Optional: capture selected track's next gold/time as factors for this holding.
+jen_capture_upgrade_factors = {
+	scope = character
+	saved_scopes = { jen_province jen_next_cost jen_next_time }
+
+	is_shown = {
+		always = no # PARKED
+	}
+
+	is_valid = {
+		exists = scope:jen_province
+		scope:jen_province = {
+			jen_player_controls_province_trigger = yes
+			has_ongoing_construction = no
+		}
+		exists = scope:jen_next_cost
+		exists = scope:jen_next_time
+	}
+
+	effect = {
+		scope:jen_province = {
+			set_variable = {
+				name = jen_auto_time_factor
+				value = {
+					value = scope:jen_next_time
+					divide = standard_construction_time
+					min = 0.1
+					max = 5
+				}
+			}
+			set_variable = {
+				name = jen_auto_cost_factor
+				value = {
+					value = scope:jen_next_cost
+					divide = normal_building_tier_2_cost
+					min = 0.1
+					max = 5
+				}
+			}
+			if = {
+				limit = { has_variable = jen_auto_upgrade }
+				jen_auto_upgrade_one_building_effect = yes
+			}
+		}
+	}
+}
